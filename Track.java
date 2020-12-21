@@ -16,6 +16,8 @@ public class Track
     
     private int playCount;
     
+    private int duracionSegundos;
+    
     /**
      * Constructor for objects of class Track.
      * @param artist The track's artist.
@@ -26,6 +28,7 @@ public class Track
     {
         setDetails(artist, title, filename);
         playCount = 0;
+        duracionSegundos = 0;
     }
     
     /**
@@ -38,6 +41,7 @@ public class Track
     {
         setDetails("unknown", "unknown", filename);
         playCount = 0;
+        duracionSegundos = 0;
     }
     
     /**
@@ -73,7 +77,7 @@ public class Track
      */
     public String getDetails()
     {
-        return artist + ": " + title + "  (file: " + filename + ")" + "reproducido un total de " + playCount;
+        return artist + ": " + title + "  (file: " + filename + ")" + "reproducido un total de " + playCount + "duracion de la cancion en segundos" + duracionSegundos;
     }
     
     /**
@@ -97,4 +101,11 @@ public class Track
         playCount = playCount + 1;
     }
     
+    public void setDuracion (int duracionSegundos){
+        this.duracionSegundos = duracionSegundos; 
+    }
+    
+    public int getDuracion () {
+        return duracionSegundos;
+    }
 }

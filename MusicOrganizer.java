@@ -182,4 +182,15 @@ public class MusicOrganizer
             }
         }
     }
+    
+    public void setDuracion(int segundos, int indiceCancion) {
+        
+        if(indexValid(indiceCancion)){
+            Track track = tracks.get(indiceCancion);
+            track.setDuracion(segundos);
+            
+        }
+    }
+     
+     
 }
