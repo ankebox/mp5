@@ -208,5 +208,13 @@ public class MusicOrganizer
         }
     }
      
+    public void isPlaying() {
+        if(sonandoCancion == true) {
+            System.out.println("hay una cancion sonando");
+        }
+        else{
+            System.out.println("no hay ninguna cancion sonando");
+        }
+    }
      
 }
