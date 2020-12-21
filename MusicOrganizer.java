@@ -15,7 +15,8 @@ public class MusicOrganizer
     private MusicPlayer player;
     // A reader that can read music files and load them as tracks.
     private TrackReader reader;
-
+    
+    private boolean sonandoCancion;
     /**
      * Create a MusicOrganizer
      */
@@ -27,6 +28,7 @@ public class MusicOrganizer
         readLibrary("audio");
         System.out.println("Music library loaded. " + getNumberOfTracks() + " tracks.");
         System.out.println();
+        sonandoCancion = false;
     }
     
     /**
@@ -53,12 +55,18 @@ public class MusicOrganizer
      */
     public void playTrack(int index)
     {
-        if(indexValid(index)) {
-            Track track = tracks.get(index);
-            player.startPlaying(track.getFilename());
-            System.out.println("Now playing: " + track.getArtist() + " - " + track.getTitle());
-            track.incrementPlayCount();
-        }
+       if(sonandoCancion == false) {
+           if(indexValid(index)) {
+                Track track = tracks.get(index);
+                player.startPlaying(track.getFilename());
+                System.out.println("Now playing: " + track.getArtist() + " - " + track.getTitle());
+                track.incrementPlayCount();
+                sonandoCancion = true;
+            }
+       }
+       else{
+           System.out.println("no se puede reproducir una cancion porque ya esta sonando otra ");
+       }
     }
     
     /**
@@ -117,17 +125,24 @@ public class MusicOrganizer
             tracks.remove(index);
         }
     }
-    
+                
     /**
      * Play the first track in the collection, if there is one.
      */
     public void playFirst()
     {
-        if(tracks.size() > 0) {
-            Track track = tracks.get(0);
-            player.startPlaying(tracks.get(0).getFilename());
-            track.incrementPlayCount();
+        if(sonandoCancion == false){
+            if(tracks.size() > 0) {
+                Track track = tracks.get(0);
+                player.startPlaying(tracks.get(0).getFilename());
+                track.incrementPlayCount();
+                sonandoCancion = true;
+            }
         }
+        else{
+            System.out.println("no se puede reproducir la cancion porque ya hay una sonando");
+        }
+
     }
     
     /**
@@ -136,6 +151,7 @@ public class MusicOrganizer
     public void stopPlaying()
     {
         player.stop();
+        sonandoCancion = false;
     }
 
     /**
