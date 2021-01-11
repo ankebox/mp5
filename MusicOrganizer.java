@@ -240,7 +240,7 @@ public class MusicOrganizer
         while (it.hasNext()) {
             Track track =it.next();
             if (track.getTitle().contains(titulo)) {
-                it.remove();
+                it.remove(); 
             }
         }
     }
