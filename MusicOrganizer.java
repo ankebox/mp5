@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Random;
 /**
  * A class to hold details of audio tracks.
  * Individual tracks may be played.
@@ -20,12 +21,12 @@ public class MusicOrganizer
     /**
      * Create a MusicOrganizer
      */
-    public MusicOrganizer()
+    public MusicOrganizer(String carpeta)
     {
         tracks = new ArrayList<Track>();
         player = new MusicPlayer();
         reader = new TrackReader();
-        readLibrary("audio");
+        readLibrary(carpeta);
         System.out.println("Music library loaded. " + getNumberOfTracks() + " tracks.");
         System.out.println();
         sonandoCancion = false;
@@ -243,5 +244,32 @@ public class MusicOrganizer
                 it.remove(); 
             }
         }
+    }
+    
+    public void playRandom(){
+        Random aleatorio = new Random();
+        int indiceAleatorio = aleatorio.nextInt(tracks.size());
+        playTrack(indiceAleatorio);
+        
+        
+    }
+    
+    public void playShuffle() {
+        ArrayList<Track> copia = new ArrayList(); 
+        copia = (ArrayList)tracks.clone();
+        
+        int numeroCancionesReproducidas = 0;
+        while (numeroCancionesReproducidas < tracks.size()){
+            Random aleatorio = new Random();
+            int numeroGenerado = aleatorio.nextInt(copia.size());
+            Track cancionElegida = copia.get(numeroGenerado); 
+            cancionElegida.incrementPlayCount();
+            System.out.println("La cancion que esta sonando actualmente es : " + cancionElegida.getDetails());
+            player.playSample(cancionElegida.getFilename());
+            copia.remove(numeroGenerado);
+            numeroCancionesReproducidas = numeroCancionesReproducidas + 1;
+        }
+        
+        
     }
 }
